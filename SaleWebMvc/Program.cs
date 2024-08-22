@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SaleWebMvc.Data;
+using SaleWebMvc.Services;
 
 namespace SaleWebMvc
 {
@@ -12,6 +13,7 @@ namespace SaleWebMvc
                 options.UseNpgsql(builder.Configuration.GetConnectionString("SaleWebMvcContext") ?? throw new InvalidOperationException("Connection string 'SaleWebMvcContext' not found.")));
 
             builder.Services.AddScoped<SeedingService>();
+            builder.Services.AddScoped<SellerService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
