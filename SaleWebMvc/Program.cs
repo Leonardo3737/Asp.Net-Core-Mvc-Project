@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using SaleWebMvc.Data;
 
 namespace SaleWebMvc
@@ -12,10 +10,12 @@ namespace SaleWebMvc
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<SaleWebMvcContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("SaleWebMvcContext") ?? throw new InvalidOperationException("Connection string 'SaleWebMvcContext' not found.")));
-                
+
+            builder.Services.AddScoped<SeedingService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
 
             var app = builder.Build();
 
@@ -38,6 +38,11 @@ namespace SaleWebMvc
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
+                seedingService.seed();
+            }
 
             app.Run();
         }
