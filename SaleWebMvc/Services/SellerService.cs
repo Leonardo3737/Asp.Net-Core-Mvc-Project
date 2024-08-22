@@ -15,5 +15,12 @@ namespace SaleWebMvc.Services
         {
             return _context.Seller.ToList();
         }
+
+        public void Insert(Seller obj)
+        {
+            obj.BirthDate = obj.BirthDate.ToUniversalTime();
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
     }
 }
