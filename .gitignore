@@ -1,0 +1,140 @@
+# Logs
+*.log
+*.tlog
+*.log.*
+*.wrn
+*.err
+*.installlog
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (Mono Auto Generated)
+mono_crash.*
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Visual Studio
+.vscode/
+.vs/
+*.vs/
+*.VC.db
+*.VC.VC.opendb
+
+# Rider
+.idea/
+.idea/*
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# ASP.NET MVC
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+*.publish.xml
+*.pubxml
+*.pubxml.user
+*.sql
+*.sqlcmdvars
+*.jfm
+
+# DotNetCompile
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# StyleCop
+StyleCopCache.*
+
+# NCrunch
+_ncrunch*
+.ncrunch*
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuget/packages/
+.nuget/NuGet.exe
+project.lock.json
+*.nuget.props
+
+# Windows image file caches
+Thumbs.db
+
+# Others
+*.pidb
+*.log
+*.cache
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.obj
+*.lib
+*.log
+*.vspscc
+*.vssscc
+*.vscode/
+.vscode/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]ib/
+
+# Web-specific files
+*.published.js
+*.publishsettings
+*.userprefs
+node_modules/
+wwwroot/node_modules/
+jspm_packages/
+wwwroot/jspm_packages/
+
+# JetBrains Rider
+.idea/
+.idea/*
+
+# Other
+_ReSharper*/
+*.sln.docstates
+_ReSharper.Caches
+*.dotsettings.user
+*.RiderSettings
+*.dotCover
+*.dotMemory
+*.dotTrace
+
+# Windows Store
+[Bb]uild[Dd]epots/
+
+# ASP.NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
