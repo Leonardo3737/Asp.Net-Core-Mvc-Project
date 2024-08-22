@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace SaleWebMvc
 {
     public class Program
@@ -5,6 +7,7 @@ namespace SaleWebMvc
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+                
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -29,6 +32,7 @@ namespace SaleWebMvc
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
             app.Run();
         }
