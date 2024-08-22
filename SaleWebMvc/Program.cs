@@ -1,4 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SaleWebMvc.Data;
 
 namespace SaleWebMvc
 {
@@ -7,6 +10,8 @@ namespace SaleWebMvc
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<SaleWebMvcContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("SaleWebMvcContext") ?? throw new InvalidOperationException("Connection string 'SaleWebMvcContext' not found.")));
                 
 
             // Add services to the container.
