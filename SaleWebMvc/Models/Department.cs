@@ -7,9 +7,8 @@
         public ICollection<Seller> Sellers { get; set; }
 
         public Department() { }
-        public Department(int id, string name)
+        public Department(string name)
         {
-            Id = id;
             Name = name;
         }
 

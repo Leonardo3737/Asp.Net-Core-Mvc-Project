@@ -9,8 +9,12 @@ namespace SaleWebMvc
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
             builder.Services.AddDbContext<SaleWebMvcContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("SaleWebMvcContext") ?? throw new InvalidOperationException("Connection string 'SaleWebMvcContext' not found.")));
+            
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddScoped<SeedingService>();
             builder.Services.AddScoped<SellerService>();
@@ -28,6 +32,11 @@ namespace SaleWebMvc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -42,6 +51,9 @@ namespace SaleWebMvc
 
             using (var scope = app.Services.CreateScope())
             {
+                var context = scope.ServiceProvider.GetRequiredService<SaleWebMvcContext>(); ;
+                context.Database.EnsureCreated();
+
                 var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
                 seedingService.seed();
             }
