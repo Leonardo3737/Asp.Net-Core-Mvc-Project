@@ -2,6 +2,7 @@
 using SaleWebMvc.Models;
 using SaleWebMvc.Models.ViewModels;
 using SaleWebMvc.Services;
+using SaleWebMvc.Services.Exceptions;
 
 namespace SaleWebMvc.Controllers
 {
@@ -30,11 +31,72 @@ namespace SaleWebMvc.Controllers
             return View(viewModel);
         }
 
+        public IActionResult Details(int id)
+        {
+            var seller = _sellerService.FindById(id);
+            if (seller == null)
+            {
+                return NotFound();
+            }
+            return View(seller);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null) return NotFound();
+            var obj = _sellerService.FindById(id);
+            if (obj == null) return NotFound();
+
+            List<Department> departments = _departmentService.FindAll();
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+            return View(viewModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Seller seller) 
+        public IActionResult Create(Seller seller)
         {
             _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Seller seller)
+        {
+            if (id != seller.Id) return BadRequest();
+
+            try
+            {
+                _sellerService.Update(seller);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException ex)
+            {
+                return BadRequest();
+            }
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var obj = _sellerService.FindById(id);
+
+            if (obj == null) return NotFound();
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
     }
