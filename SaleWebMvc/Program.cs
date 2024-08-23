@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 using SaleWebMvc.Data;
 using SaleWebMvc.Services;
+using System.Globalization;
 
 namespace SaleWebMvc
 {
@@ -8,6 +10,14 @@ namespace SaleWebMvc
     {
         public static void Main(string[] args)
         {
+            var enUs = new CultureInfo("en-Us");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(enUs),
+                SupportedCultures = new List<CultureInfo> { enUs },
+                SupportedUICultures = new List<CultureInfo> { enUs }
+            };
+
             var builder = WebApplication.CreateBuilder(args);
 
 
@@ -38,6 +48,8 @@ namespace SaleWebMvc
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
+
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
